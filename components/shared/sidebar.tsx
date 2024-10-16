@@ -11,7 +11,7 @@ const Sidebar = () => {
         <span className="">Sidebar</span>
       </div>
       <div className="p-4 bg-primary-foreground drop-shadow-lg rounded-lg border">
-        <ol className="[&>li]:mt-2 flex flex-col items-start w-full">
+        <ol className="[&>li]:my-1 flex flex-col items-start w-full">
           <li className="duration-200 ease-linear transition-all hover:bg-primary hover:text-primary-foreground p-2 rounded-lg w-full border-b">
             <Link href={"/org"} className="flex items-center text-md space-x-2">
               <Origami className="size-5"/>
@@ -39,7 +39,7 @@ const Sidebar = () => {
         </ol>
       </div>
       <div className="p-4 bg-primary-foreground drop-shadow-lg rounded-lg border-accent border">
-        <ul>
+        <ul className="[&>li]:my-1">
         <li className="duration-200 ease-linear transition-all hover:bg-primary hover:text-primary-foreground p-2 rounded-lg w-full">
             <Link href={"/preferences"} className="flex items-center text-md justify-start space-x-4">
               <ListBulletIcon className="size-5"/>
