@@ -48,7 +48,7 @@ const Sidebar = () => {
           </li>
           <hr />
           <li className="duration-200 ease-linear transition-all hover:bg-primary hover:text-primary-foreground p-2 rounded-lg w-full">
-            <Link href={"/account"} className="flex items-center text-md justify-start space-x-4">
+            <Link href={"/user-profile"} className="flex items-center text-md justify-start space-x-4">
               <AvatarIcon className="size-5"/>
               <span>Account</span>
             </Link>
