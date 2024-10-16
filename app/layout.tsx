@@ -3,6 +3,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "../components/providers/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
+import JotaiProvider from "@/components/providers/jotai-provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,9 +21,11 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`${font.className} antialiased h-screen w-full`}>
-          <ThemeProvider attribute="class" defaultTheme="dark">
-            {children}
-          </ThemeProvider>
+          <JotaiProvider>
+            <ThemeProvider attribute="class" defaultTheme="dark">
+              {children}
+            </ThemeProvider>
+          </JotaiProvider>
         </body>
       </html>
     </ClerkProvider>

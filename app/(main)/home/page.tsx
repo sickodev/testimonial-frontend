@@ -1,4 +1,4 @@
-import { profileAtom } from "@/atoms";
+import { profileAtom } from "@/lib/atoms";
 import { ProfileUpdater } from "@/components/shared/profile-updater";
 import H1 from "@/components/ui/h1";
 import { createProfile } from "@/lib/create-profile";

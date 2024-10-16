@@ -1,6 +1,6 @@
 "use client";
 
-import { profileAtom } from "@/atoms";
+import { profileAtom } from "@/lib/atoms";
 import { User } from "@prisma/client";
 import { useSetAtom } from "jotai";
 import { useEffect } from "react";

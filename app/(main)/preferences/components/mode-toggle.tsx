@@ -9,6 +9,7 @@ import { Moon, Sun } from "lucide-react";
 const ModeToggle = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  
 
   useEffect(() => {
     setMounted(true);
