@@ -11,4 +11,36 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id            String         @id
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  name          String
+  email         String         @unique
+  phone         String         @unique
+  organisations Organisation[]
+}
+
+model Organisation {
+  id           Int            @id @default(autoincrement())
+  name         String
+  website      String         @unique
+  testimonials Testimonials[]
+  owner        User           @relation(fields: [ownerId], references: [id])
+  ownerId      String
+}
+
+model Testimonials {
+  id           Int          @id @default(autoincrement())
+  name         String
+  email        String
+  profession   String?
+  company      String?
+  rating       Int
+  feedback     String?
+  organisation Organisation @relation(fields: [orgId], references: [id])
+  orgId        Int
 }
