@@ -28,9 +28,7 @@ import { Skeleton } from "../ui/skeleton";
 import { RefreshCw, Send, X } from "lucide-react";
 import { generateSlug } from "random-word-slugs";
 import P from "../ui/p";
-import { useUser } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { profileAtom } from "@/lib/atoms";
 
 const AddOrganisationDialog = () => {
@@ -38,7 +36,7 @@ const AddOrganisationDialog = () => {
   const [slug, setSlug] = useState("");
   const [picture, setPicture] = useState("");
 
-  const [atom, setAtom] = useAtom(profileAtom);
+  const atom = useAtomValue(profileAtom);
 
   const form = useForm<OrganisationSchema>({
     resolver: zodResolver(organisationSchema),
@@ -58,6 +56,11 @@ const AddOrganisationDialog = () => {
 
   function setSlugName() {
     setSlug(generateSlug());
+    setPicture(
+      `https://picsum.photos/id/${Math.floor(
+        Math.random() * 200
+      )}/400?grayscale`
+    );
   }
 
   function resetData() {
@@ -71,16 +74,14 @@ const AddOrganisationDialog = () => {
   useEffect(() => {
     setSlug(generateSlug());
     setPicture(
-      `https://picsum.photos/id/${Math.floor(Math.random() * 100)}/300`
+      `https://picsum.photos/id/${Math.floor(
+        Math.random() * 200
+      )}/400`
     );
   }, []);
 
   if (!mounted) {
-    return (
-      <div>
-        <Skeleton className="h-8 w-full rounded-lg" />
-      </div>
-    );
+    return null;
   }
 
   return (
@@ -151,7 +152,7 @@ const AddOrganisationDialog = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Image</FormLabel>
-                    <img src={picture} alt="" />
+                    <img src={picture} alt="" className="my-1" />
                     <div className="flex space-x-3">
                       <FormControl>
                         <Input disabled value={picture} />
