@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "../components/providers/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import JotaiProvider from "@/components/providers/jotai-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,6 +25,7 @@ export default function RootLayout({
           <JotaiProvider>
             <ThemeProvider attribute="class" defaultTheme="dark">
               {children}
+              <Toaster richColors position="bottom-left" expand />
             </ThemeProvider>
           </JotaiProvider>
         </body>

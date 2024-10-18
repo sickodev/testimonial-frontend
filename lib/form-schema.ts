@@ -2,8 +2,6 @@ import { z } from "zod";
 
 export const organisationSchema = z.object({
   ownerId: z.string(),
-  owner: z.string(),
-  ownerEmail: z.string().email(),
   pictureURL: z.string(),
   name: z.string({ message: "Name is empty" }),
   website: z

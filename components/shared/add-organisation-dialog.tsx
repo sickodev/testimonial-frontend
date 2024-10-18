@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
-import { PlusIcon, ResetIcon } from "@radix-ui/react-icons";
+import { PlusIcon } from "@radix-ui/react-icons";
 import H3 from "../ui/h3";
 import { useForm } from "react-hook-form";
 import { organisationSchema, OrganisationSchema } from "@/lib/form-schema";
@@ -24,34 +24,50 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { Skeleton } from "../ui/skeleton";
 import { RefreshCw, Send, X } from "lucide-react";
 import { generateSlug } from "random-word-slugs";
 import P from "../ui/p";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtomValue } from "jotai";
 import { profileAtom } from "@/lib/atoms";
+import axios from "axios";
+import { DialogTitle } from "@radix-ui/react-dialog";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const AddOrganisationDialog = () => {
   const [mounted, setMounted] = useState(false);
   const [slug, setSlug] = useState("");
   const [picture, setPicture] = useState("");
-
   const atom = useAtomValue(profileAtom);
+  const [initialOwnerId, setInitialOwnerId] = useState(atom?.id || "");
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const router = useRouter();
 
   const form = useForm<OrganisationSchema>({
     resolver: zodResolver(organisationSchema),
     defaultValues: {
       name: "",
       website: "",
+      pictureURL: picture,
       slug: slug,
-      ownerId: atom?.id,
-      owner: atom?.name,
-      ownerEmail: atom?.email,
+      ownerId: initialOwnerId,
     },
   });
 
   async function onSubmit(values: OrganisationSchema) {
-    console.log(values);
+    try {
+      await axios.post(`http://localhost:8080/org`, values);
+      toast.success("Organisation has been created", {
+        description: `${values.name} has been created`,
+      });
+      setDialogOpen(false);
+      router.push("/org");
+    } catch (error: any) {
+      toast.error("Failed to create organisation", {
+        description: error.message,
+      });
+    }
   }
 
   function setSlugName() {
@@ -68,15 +84,30 @@ const AddOrganisationDialog = () => {
   }
 
   useEffect(() => {
+    form.setValue("slug", slug); // Update slug value in the form
+  }, [slug, form]);
+
+  useEffect(() => {
+    form.setValue("pictureURL", picture); // Update picture value in the form
+  }, [picture, form]);
+
+  useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (atom?.id) {
+      setInitialOwnerId(atom.id);
+      form.setValue("ownerId", atom.id); // Set ownerId in the form when available
+    }
+  }, [atom?.id, form]);
 
   useEffect(() => {
     setSlug(generateSlug());
     setPicture(
       `https://picsum.photos/id/${Math.floor(
         Math.random() * 200
-      )}/400`
+      )}/400?grayscale`
     );
   }, []);
 
@@ -93,6 +124,7 @@ const AddOrganisationDialog = () => {
         </Button>
       </DialogTrigger>
       <DialogContent className="overflow-y-scroll max-h-full py-4">
+        <DialogTitle className="sr-only">Add Organisation</DialogTitle>
         <DialogHeader>
           <H3>Add an Organisation</H3>
           <DialogDescription>
@@ -194,34 +226,7 @@ const AddOrganisationDialog = () => {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="owner"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Owner</FormLabel>
-                    <div className="flex space-x-3">
-                      <FormControl>
-                        <Input disabled {...field} />
-                      </FormControl>
-                    </div>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="ownerEmail"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Owner Email</FormLabel>
-                    <div className="flex space-x-3">
-                      <FormControl>
-                        <Input disabled {...field} />
-                      </FormControl>
-                    </div>
-                  </FormItem>
-                )}
-              />
+
               <div className="flex justify-center space-x-4">
                 <Button
                   onClick={resetData}
