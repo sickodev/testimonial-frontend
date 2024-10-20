@@ -1,4 +1,4 @@
-import OrgCardHolder from "@/components/shared/org-card-holder";
+import OrgCardHolder from "@/components/shared/org-components/org-card-holder";
 import H2 from "@/components/ui/h2";
 import P from "@/components/ui/p";
 import React from "react";

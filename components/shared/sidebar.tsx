@@ -5,7 +5,7 @@ import React from "react";
 
 const Sidebar = () => {
   return (
-    <div className="w-1/4 md:w-1/5 lg:w-1/6 p-2 space-y-12">
+    <div className="md:w-1/5 lg:w-1/6 p-2 space-y-12 hidden md:block">
       <div className="flex space-x-4 items-center border p-2 border-b-4 border-neutral-900 opacity-50">
         <LucideSidebar className="size-5" />
         <span className="">Sidebar</span>

@@ -4,11 +4,11 @@ import AddOrganisationDialog from "./add-organisation-dialog";
 import Link from "next/link";
 import OrgCard from "./org-card";
 import axios, { AxiosResponse } from "axios";
-import P from "../ui/p";
+import P from "../../ui/p";
 import { Organisation, Testimonials } from "@prisma/client";
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "../../ui/skeleton";
 import { useUser } from "@clerk/nextjs";
-import H2 from "../ui/h2";
+import H2 from "../../ui/h2";
 
 interface OrganisationWithTestimonials extends Organisation{
   testimonials: Testimonials[]

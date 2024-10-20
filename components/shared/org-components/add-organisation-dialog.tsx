@@ -7,10 +7,10 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTrigger,
-} from "../ui/dialog";
-import { Button } from "../ui/button";
+} from "../../ui/dialog";
+import { Button } from "../../ui/button";
 import { PlusIcon } from "@radix-ui/react-icons";
-import H3 from "../ui/h3";
+import H3 from "../../ui/h3";
 import { useForm } from "react-hook-form";
 import { organisationSchema, OrganisationSchema } from "@/lib/form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,11 +22,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
+} from "../../ui/form";
+import { Input } from "../../ui/input";
 import { RefreshCw, Send, X } from "lucide-react";
 import { generateSlug } from "random-word-slugs";
-import P from "../ui/p";
+import P from "../../ui/p";
 import { useAtomValue } from "jotai";
 import { profileAtom } from "@/lib/atoms";
 import axios from "axios";
